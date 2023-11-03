@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Train Reservation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .ticket {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        .receipt {
+            display: none;
+        }
+        .compartment-copy,
+        .conductor-copy {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Train Reservation System</h1>
+        
+        <!-- Step 1: Passenger Reservation Form -->
+        <form id="reservationForm">
+            <label for="name">Passenger Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" required>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="passengers">Number of Passengers:</label>
+            <input type="number" id="passengers" name="passengers" required>
+
+            <label for="journey">Journey Details:</label>
+            <select id="journey" name="journey" required>
+                <option value="Journey 1">Journey 1</option>
+                <option value="Journey 2">Journey 2</option>
+                <!-- Add more journey options here -->
+            </select>
+
+            <label for="amount">Amount ($):</label>
+            <input type="number" id="amount" name="amount" required>
+
+            <button type="submit">Submit Reservation</button>
+        </form>
+
+
+        <!-- Step 2: Ticket Preparation -->
+        <div class="ticket" id="ticket" style="display: none;">
+            <h2>Booking Statement (Office Copy)</h2>
+            <p>Name: <span id="ticketName"></span></p>
+            <p>Destination: <span id="ticketDestination"></span></p>
+            <p>Time: <span id="ticketTime"></span></p>
+            <p>Date: <span id="ticketDate"></span></p>
+            <p>Passengers: <span id="ticketPassengers"></span></p>
+            <p>Journey: <span id="ticketJourney"></span></p>
+            <p>Amount: $<span id="ticketAmount"></span></p>
+        </div>
+
+         <!-- Step 3: Compartment Copy -->
+        <div class="compartment-copy">
+            <h2>Booking Statement (Compartment Copy)</h2>
+            <p>Name: <span id="compartmentName"></span></p>
+            <p>Destination: <span id="compartmentDestination"></span></p>
+            <p>Time: <span id="compartmentTime"></span></p>
+            <p>Date: <span id="compartmentDate"></span></p>
+            <p>Passengers: <span id="compartmentPassengers"></span></p>
+            <p>Journey: <span id="compartmentJourney"></span></p>
+            <p>Amount: $<span id="compartmentAmount"></span></p>
+        </div>
+
+        <!-- Step 4: Train Conductor Copy -->
+        <div class="conductor-copy">
+            <h2>Booking Statement (Conductor's Copy)</h2>
+            <p>Name: <span id="conductorName"></span></p>
+            <p>Destination: <span id="conductorDestination"></span></p>
+            <p>Time: <span id="conductorTime"></span></p>
+            <p>Date: <span id="conductorDate"></span></p>
+            <p>Passengers: <span id="conductorPassengers"></span></p>
+            <p>Journey: <span id="conductorJourney"></span></p>
+            <p>Amount: $<span id="conductorAmount"></span></p>
+        </div>
+
+        <!-- Step 5: Train Conductor Copy -->
+            <div class="receipt" id="receipt" style="display: none;">
+            <h2>Cash Statement (Shift End)</h2>
+            <p>Passenger Name: <span id="receiptName"></span></p>
+            <p>Destination: <span id="receiptDestination"></span></p>
+            <p>Time: <span id="receiptTime"></span></p>
+            <p>Date: <span id="receiptDate"></span></p>
+            <p>Number of Passengers: <span id="receiptPassengers"></span></p>
+            <p>Journey: <span id="receiptJourney"></span></p>
+            <p>Amount Collected: $<span id="receiptAmount"></span></p>
+        </div>
+
+    <script>
+        document.getElementById("reservationForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Get form values
+            const name = document.getElementById("name").value;
+            const destination = document.getElementById("destination").value;
+            const time = document.getElementById("time").value;
+            const date = document.getElementById("date").value;
+            const passengers = document.getElementById("passengers").value;
+            const journey = document.getElementById("journey").value;
+            const amount = document.getElementById("amount").value;
+
+            // Display ticket information (Office Copy)
+            document.getElementById("ticketName").textContent = name;
+            document.getElementById("ticketDestination").textContent = destination;
+            document.getElementById("ticketTime").textContent = time;
+            document.getElementById("ticketDate").textContent = date;
+            document.getElementById("ticketPassengers").textContent = destination;
+            document.getElementById("ticketJourney").textContent = journey;
+            document.getElementById("ticketAmount").textContent = amount;
+            document.getElementById("ticket").style.display = "block";
+
+            // Display cash collection receipt
+            document.getElementById("receiptName").textContent = name;
+            document.getElementById("receiptDestination").textContent = destination;
+            document.getElementById("receiptTime").textContent = Time;
+            document.getElementById("receiptDate").textContent = date;
+            document.getElementById("receiptPassengers").textContent = passengers;
+            document.getElementById("receiptJourney").textContent = journey;
+            document.getElementById("receiptAmount").textContent = amount;
+            document.getElementById("receipt").style.display = "block";
+
+        });
+    </script>
+
+        <script>
+            document.getElementById("reservationForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                // Display compartment copy information
+                document.getElementById("compartmentName").textContent = name;
+                document.getElementById("compartmentDestination").textContent = destination;
+                document.getElementById("compartmentTime").textContent = time;
+                document.getElementById("compartmentDate").textContent = date;
+                document.getElementById("compartmentPassengers").textContent = passengers;
+                document.getElementById("compartmentJourney").textContent = journey;
+                document.getElementById("compartmentAmount").textContent = amount;
+                document.querySelector('.compartment-copy').style.display = "block";
+
+                // Display train conductor copy information
+                document.getElementById("conductorName").textContent = name;
+                document.getElementById("conductorDestination").textContent = destination;
+                document.getElementById("conductorTime").textContent = time;
+                document.getElementById("conductorDate").textContent = date;
+                document.getElementById("conductorPassengers").textContent = passengers;
+                document.getElementById("conductorJourney").textContent = journey;
+                document.getElementById("conductorAmount").textContent = amount;
+                document.querySelector('.conductor-copy').style.display = "block";
+            });
+        </script>
+         <script>
+            document.getElementById("reservationForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                // Get form values
+                const name = document.getElementById("name").value;
+                const destination = document.getElementById("destination").value;
+                const time = document.getElementById("time").value;
+                const date = document.getElementById("date").value;
+                const passengers = document.getElementById("passengers").value;
+                const journey = document.getElementById("journey").value;
+                const amount = document.getElementById("amount").value;
+
+                // Display ticket information (Office Copy)
+                document.getElementById("ticketName").textContent = name;
+                document.getElementById("ticketDestination").textContent = destination;
+                document.getElementById("ticketTime").textContent = time;
+                document.getElementById("ticketDate").textContent = date;
+                document.getElementById("ticketPassengers").textContent = passengers; // Corrected variable name
+                document.getElementById("ticketJourney").textContent = journey;
+                document.getElementById("ticketAmount").textContent = amount;
+                document.getElementById("ticket").style.display = "block";
+
+                // Display cash collection receipt
+                document.getElementById("receiptName").textContent = name;
+                document.getElementById("receiptDestination").textContent = destination;
+                document.getElementById("receiptTime").textContent = time; // Corrected variable name
+                document.getElementById("receiptDate").textContent = date;
+                document.getElementById("receiptPassengers").textContent = passengers;
+                document.getElementById("receiptJourney").textContent = journey;
+                document.getElementById("receiptAmount").textContent = amount;
+                document.getElementById("receipt").style.display = "block";
+            });
+         </script>
+</body>
+</html>
